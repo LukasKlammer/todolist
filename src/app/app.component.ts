@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'firebase-todolist';
+  todos$: Observable<any>; // Variable namens item deklariert ($ hat keine Bedeutung)
+  todos: Array<string> = ['todo1', 'todo2'];
+
+
+  constructor(firestore: Firestore) {
+    const coll:any = collection(firestore, 'todos');
+    this.todos$ = collectionData(coll);
+
+    this.todos$.subscribe( (newTodos) => {
+      console.log('Neue Todos sind', newTodos);
+      this.todos = newTodos;
+    });
+  }
 }
