@@ -1,3 +1,15 @@
+<h1>simple todo-list</h1>
+
+<mat-form-field class="example-form-field" appearance="fill">
+  <mat-label>insert todo</mat-label>
+  <input matInput type="text" [(ngModel)]="todotext">
+  <button *ngIf="todotext" matSuffix mat-icon-button aria-label="Clear" (click)="todotext=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<button mat-raised-button color="primary" [disabled]="todotext == ''" (click)="addTodo()">add</button>
+
 <ul>
-  <li *ngFor="let todo of todos; let i = index">{{ todo['name'] }}</li>
+  <li *ngFor="let todo of todos$ | async; let i = index">{{ todo['name'] }}</li>
 </ul>
