@@ -12,12 +12,10 @@ export class AppComponent {
   todos$: Observable<any>; // Variable namens item deklariert ($ hat keine Bedeutung)
   todos: Array<string> = ['todo1', 'todo2'];
   todotext: string = '';
-  db: any;
 
 
   constructor(private firestore: Firestore) {
     const coll: any = collection(firestore, 'todos');
-    this.db = coll;
     this.todos$ = collectionData(coll);
 
     this.todos$.subscribe((newTodos) => {
